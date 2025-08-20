@@ -19,9 +19,8 @@ let Months = new Map(); // Using a Map to count instances of each month
     success: function (posts) {
       var totalPosts = Object.keys(posts).length;
         totalPages = Math.ceil(totalPosts / postsPerPage);
+        document.getElementById("blog_posts").innerHTML += ` : ${totalPosts} posts`;
       for (var key in posts) {
-        $("blog_posts").html += $("blog_posts").html() + totalPosts;
-        
         
         if (posts.hasOwnProperty(key)) {
             var value = posts[key];
