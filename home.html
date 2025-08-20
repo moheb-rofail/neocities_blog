@@ -1,0 +1,69 @@
+<div id="post" class="container-lg posts">
+  <div class="friendURL">
+    <div id="Sponsors"></div>
+  </div>
+  <div id="posts" class="row g-1"></div>
+  <div id="pagination">
+    <a class='btn btn-success' href="/?page=posts">Show All Posts</a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('content').classList.remove('regular-page-width');
+  document.getElementById('content').classList.add('container-lg');
+
+  var sponsors = getSponsors();
+  for (var key in sponsors) document.getElementById('Sponsors').innerHTML += `<u>Ad</u> <a class="URLItself" href="${key}" target="_blank" rel="dofollow">${sponsors[key][0]}</a><br>`;
+
+  $.ajax({
+    url: "includes/posts.json",
+    type: "GET",
+    dataType: "json",
+    success: function (posts) {
+      var count = 0;
+      for (var key in posts) {
+        if (count >= 20) break; // Limit to 20 posts
+        if (posts.hasOwnProperty(key)) {
+          var image;
+          if (posts[key].photo == "") image = getString("postDefaultPhoto");
+          else image = posts[key].photo;
+          $('#posts').append(
+            `
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card p-2 m-1">
+                <div class="card-title">
+                  <span class="postDate">${posts[key].date}</span>
+                  <span class="postCategory">
+                    <a class="category" href="?page=category&c=${posts[key].category}">
+                      ${posts[key].category}
+                    </a>
+                  </span>
+                </div>
+                <div class="card-body postImage">
+                  <a class="postURL" href='${getPostUrl(posts[key].title)}' rel="dofollow">
+                    <img src="${image}" />
+                  </a>
+                </div>
+                <div class="postTitle card-footer">
+                  <a class="postURL" href='${getPostUrl(posts[key].title)}' rel="dofollow">
+                    ${getPostTitle(posts[key].title)}
+                  </a>
+                </div>
+              </div>
+            </div>
+        `
+          );
+        }
+        count++;
+      }
+    },
+    error: function (xhr, status, error) {
+      // Handle errors
+      console.error('Error loading JSON file:', error);
+    },
+    complete: function () {
+      // This function runs after success or error
+      console.log("Request complete.");
+    }
+  });
+</script>

@@ -1,0 +1,47 @@
+<h2>Contact me</h2>
+<div id="c_widget"></div>
+
+<script>
+const s_formId = '1FAIpQLSdZGn4yRM_yXyvsPyXcXUIX8UuQ9YKQAJtmkPo5b6ZdYeWSvA';
+const s_nameId = '1086074182';
+const s_emailId = '415081094';
+const s_messageId = '1598181935';
+
+const s_nameFieldLabel = 'Name';
+const s_emailFieldLabel = 'Email';
+const s_submitButtonLabel = 'Submit';
+
+function messageSent() {
+    let successMessageDiv = document.createElement('div');
+    successMessageDiv.innerHTML = "Thank you for contacting us, Your Message was sent successfully<br>Moheb will reply to you ASAP";
+    successMessageDiv.className = 'alert alert-success';
+    document.getElementById('c_widget').appendChild(successMessageDiv);
+}
+
+// HTML Form
+const v_mainHtml = `<form id="c_form" method="post" action="https://docs.google.com/forms/d/e/${s_formId}/formResponse"></form>`;
+const v_formHtml = `
+    <div class="c-inputWrapper m-3">
+        <input class="form-control" placeholder="${s_nameFieldLabel}" name="entry.${s_nameId}" type="text" required>
+    </div>
+    <div class="c-inputWrapper m-3">
+        <input class="form-control" placeholder="${s_emailFieldLabel}" name="entry.${s_emailId}" type="email">
+    </div>
+    <div class="c-inputWrapper m-3">
+        <textarea class="form-control" name="entry.${s_messageId}" rows="4" required></textarea>
+    </div>
+    <input class="btn btn-success m-3" type="submit" value="${s_submitButtonLabel}">
+`;
+
+document.getElementById('c_widget').innerHTML = v_mainHtml;
+const c_form = document.getElementById('c_form');
+c_form.innerHTML = v_formHtml;
+
+c_form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch(this.action, { method: "POST", body: formData, mode: "no-cors" });
+    messageSent();
+    this.reset(); 
+});
+</script>

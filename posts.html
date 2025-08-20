@@ -1,0 +1,104 @@
+
+  <div id="post">
+      <h3 id="blog_posts">Blog Posts</h3>
+      <div id="posts"></div>
+      <div id="pagination"></div>
+  </div>
+  
+  <script>
+    var postsPerPage = 50;
+    var currentPage = 1;
+    var totalPages;
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+let Months = new Map(); // Using a Map to count instances of each month
+
+    $.ajax({
+    url: "includes/posts.json",
+    type: "GET",
+    dataType: "json",
+    success: function (posts) {
+      var totalPosts = Object.keys(posts).length;
+        totalPages = Math.ceil(totalPosts / postsPerPage);
+      for (var key in posts) {
+        $("blog_posts").html += $("blog_posts").html() + totalPosts;
+        
+        
+        if (posts.hasOwnProperty(key)) {
+            var value = posts[key];
+            let dateStr = value['date']; // Get the date string from the value array
+            let date = new Date(dateStr); // Create a new Date object from the string
+            var Month = monthNames[date.getMonth()] + " " + date.getFullYear();
+            if (!Months.has(Month)) { // If the month is not in the Set yet
+                Months.set(Month, [1, false]); // Add the month to the Map with a count of 1, false means that the month is not displayed yet
+            } else {
+                Months.set(Month, [Months.get(Month)[0] + 1, false]); // Increase the count for the month
+            }
+          }
+        }
+        showPosts(currentPage);
+        
+        // PAGINATION
+        var pagination = document.getElementById("pagination");      
+        var button = document.createElement("button");
+        button.innerHTML = "Load More";
+        button.classList.add('btn');
+        button.classList.add('btn-success');
+        pagination.appendChild(button);
+        var i = 1;
+        button.addEventListener("click", function() {
+          // Set the current page to the clicked button's number
+          currentPage = ++i;
+          if(currentPage == totalPages) pagination.removeChild(button);
+          // Display the data for the current page
+          showPosts(currentPage);
+        });
+        
+        
+        function showPosts(currentPage) {
+          var start = (currentPage-1) * postsPerPage;
+          var end = start + postsPerPage;
+          var currentRows = Object.entries(posts).slice(start, end);
+          for (var key in currentRows) {
+            if (currentRows.hasOwnProperty(key)) {
+              
+              var value = currentRows[key][1];
+              let dateStr = value['date']; // Get the date string from the value array
+              let date = new Date(dateStr); // Create a new Date object from the string
+              var Month = monthNames[date.getMonth()] + " " + date.getFullYear();
+              
+              // check if the month is not displayed. if(!false)
+              if(!Months.get(Month)[1]) {
+                document.getElementById("posts").innerHTML += `<b id="Month">${Month}</h3>`;
+                // after displaying the month turn false to true to show that the month is displayed already!
+                Months.set(Month, [Months.get(Month)[0], true]);
+              }
+              
+              document.getElementById("posts").innerHTML += 
+              `<div class="postsRow">${date.getDate()} | <a class="postURL" href='${getPostUrl(value['title'])}' rel="dofollow">${getPostTitle(value['title'])}</a>  (<a class="category" href="?page=category&c=${value['category']}">${value['category']}</a>)</div>`;
+            }
+          }
+      
+          // Get all elements with id 'Month'
+          let monthElements = document.querySelectorAll('#Month');
+        
+          // Iterate over the elements
+          monthElements.forEach(function(element) {
+          // Get the innerText of the element
+          let monthText = element.innerText;
+        
+          // Check if the text is a month in the Map
+          if (Months.has(monthText)) {
+            // If it is, add the count from the Map next to it
+            element.innerText += " (" + Months.get(monthText)[0] + ")";
+          }
+            
+        });
+       
+      }
+    }
+    })
+    .catch(error => {
+      console.error('Error loading JSON file:', error);
+    });
+
+  </script>

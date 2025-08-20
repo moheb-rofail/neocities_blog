@@ -1,0 +1,40 @@
+<h3 id="catName"></h3>
+  <div id="post"></div>
+  <script>
+    fetch('includes/posts.json')
+      .then(response => response.json())
+      .then(jsonContent => {
+        
+        let years = new Set(); // Using a Set will automatically remove duplicates
+        
+        // get the category from the url
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let category = urlParams.get('c');
+        
+        if(category) {
+          // change title of the page by adding the title of the category besides Moheb Rofail
+          document.title += ` - ${category}`;
+          document.getElementById("catName").innerHTML += `Posts in category ${category}:`
+   
+          for (var key in jsonContent) {
+            if (jsonContent.hasOwnProperty(key)) {
+              var value = jsonContent[key];
+
+              if(value['category'] == category) {
+                let dateStr = value['date']; // Get the date string from the value array
+                let date = new Date(dateStr); // Create a new Date object from the string
+                let year = date.getFullYear(); // Extract the year
+                if (!years.has(year)) { // If the year is not in the Set yet
+                    document.getElementById("post").innerHTML += `<h3>${year}</h3>`;
+                    years.add(year); // Add the year to the Set
+                }
+                  document.getElementById("post").innerHTML += 
+                `<div class="postsRow">${value['date'].replace(year, "")} | <a href='${getPostUrl(value.title)}'>${getPostTitle(value.title)}</a></div>`;
+              }
+            }
+          }
+        }
+      }
+    );
+  </script>

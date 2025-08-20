@@ -1,0 +1,79 @@
+
+  <section id="post"></section>
+  <object data-include="includes/shareButtons.html"></object>
+  <section id="related_posts"><h3>Related Posts</h3></section>
+  <section id="c_widget"></section>
+
+  
+  <script src="includes/comment-widget/comment-widget.js"></script>
+
+    <script>
+// Define an async function
+async function fetchData() {
+  try {
+    // Get the post title from the url
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let dashed_post_title = urlParams.get('p');
+
+    // Fetch the JSON file
+    const response = await fetch('includes/posts.json');
+    const posts = await response.json();
+    
+   let post = posts.find(p => p.title === dashed_post_title);
+
+    const category = post['category'];
+
+    if (!post) {
+        console.log('Post not found');
+        return;
+    }
+
+    // Extract the year from the date
+    var myDate = new Date(post['date']);
+    const year = myDate.getFullYear();
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = (monthNames[myDate.getMonth()]);
+    
+    // Fetch the .txt file from the server
+    const fileResponse = await fetch(`/Posts/${year}/${month}/${dashed_post_title}.txt`);
+    const fileText = await fileResponse.text();
+
+    var wordsCount = countWords(fileText);
+    var post_title = getPostTitle(dashed_post_title);
+    // Change title of the page by adding the title of the post besides Moheb Rofail
+    document.title += ` - ${post_title}`;
+    
+    document.getElementById("post").innerHTML += `
+      <h1><a href="/?page=post&p=${dashed_post_title}" rel="dofollow">${post_title}</a></h1>
+      ${post[0]} (<a href="?page=category&c=${category}">${category}</a>) | ${wordsCount} words (${calculateReadingTime(wordsCount)} minutes)<br>
+      ${fileText}`;
+      
+       
+    let counter = 0;
+    for (var key1 in posts) {
+    let postsInCategory = posts.filter(p => p.category === category);
+
+      if (postsInCategory.hasOwnProperty(key1)) {
+        if(key1 == post_title) continue;
+        var value1 = postsInCategory[key1];
+        if(value1['category'] == category) {
+          if(counter < 5)
+            document.getElementById("related_posts").innerHTML += 
+          `<div class="postsRow"> - <a href='${getPostUrl(value1.title)}'>${getPostTitle(value1.title)}</a></div>`;
+          counter++;
+        }  
+      }
+    }
+    
+    
+  } catch (error) {
+    //window.location.href = "/not_found";
+    console.error('Error:', error);
+  }
+}
+
+// Call the async function
+fetchData();
+  </script>
+  <script src="includes/javascript.js"></script>

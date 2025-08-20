@@ -1,0 +1,82 @@
+/* Main */
+#c_widget {
+    overflow: auto;
+}
+
+#c_widget button, #c_widget input[type=submit] {
+    padding: 7px 10px;
+    text-decoration: none;
+	  text-align: center;
+    border-radius: 5px;
+}
+
+/* Input section */
+#c_inputDiv {
+    padding: 10px;
+    border-radius: 5px;
+}
+#c_container {margin-top: 10px;}
+
+.c-inputWrapper {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.c-input {
+    padding: 4px;
+	outline: none;
+	width: calc(100% - 120px);
+}
+
+.c-textInput {
+    width: calc(100% - 10px);
+    max-width: 900px;
+    resize: auto;
+}
+
+#c_widget button, #c_widget input[type=submit], .c-input, .c-textInput{
+  font-size: 1em; 
+}
+#c_submitButton {display: block;}
+
+/* Comment section */
+.c-reply {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+.c-reply:last-child {margin-bottom: 0;}
+
+.c-name, .c-site {
+    display: inline-block;
+    margin: 0;
+    margin-right: 10px;
+    padding: 0;
+}
+
+.c-site {
+  font-weight: bold; 
+}
+.c-timestamp {
+    float: right;
+}
+.c-text {
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    clear: both;
+}
+
+/* Pagination */
+#c_pagination {text-align: center;}
+.c-replyButton {margin-top: 10px;}
+.c-expandButton {
+    float: right;
+    margin-top: 10px;
+}
+.c-paginationButton {
+    margin-right: 4px;
+    margin-left: 4px;
+}

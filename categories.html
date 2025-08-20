@@ -1,0 +1,37 @@
+<div id="categories"><h3>All Categories</h3><ul id="categoriesUL"></ul></div>
+  <script>
+    fetch('includes/posts.json')
+      .then(response => response.json())
+      .then(jsonContent => {
+          document.title += ` - Categories`;
+          
+        let categoryCount = {};
+        let categoryPosts = {};
+        
+        for (let key in jsonContent) {
+          let category = jsonContent[key]['category'];
+          
+          if (!categoryPosts[category]) categoryPosts[category] = []; // Initialize the array if it doesn't exist
+          categoryPosts[category].push(jsonContent[key].title); // Add the post title to the category array
+              
+          if (categoryCount[category]) {
+              categoryCount[category]++;
+          } else {
+            categoryCount[category] = 1;
+          }
+        }
+
+        for (var category in categoryCount) {
+          document.getElementById('categoriesUL').innerHTML += `<li><a href="?page=category&c=${category}" target="_blank" rel="dofollow"><b class="category">${category}</h3></a> (${categoryCount[category]})`;     
+          for (var i=0; i< categoryPosts[category].length; i++) {   
+            document.getElementById('categoriesUL').innerHTML += `- <a href="${getPostUrl(categoryPosts[category][i])}" target="_blank" rel="dofollow">${getPostTitle(categoryPosts[category][i])}<br>`;
+          }           
+          document.getElementById('categoriesUL').innerHTML += `</li>`;
+        }
+      })
+      .catch(error => {
+        //window.location.href = "/not_found";
+        console.error('Error loading JSON file:', error);
+      });
+ 
+</script>
