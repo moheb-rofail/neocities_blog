@@ -46,7 +46,7 @@ async function fetchData() {
     
     document.getElementById("post").innerHTML += `
       <h1><a href="/?page=post&p=${dashed_post_title}" rel="dofollow">${post_title}</a></h1>
-      ${post[0]} (<a href="?page=category&c=${category}">${category}</a>) | ${wordsCount} words (${calculateReadingTime(wordsCount)} minutes)<br>
+      ${post['date']} (<a href="?page=category&c=${category}">${category}</a>) | ${wordsCount} words (${calculateReadingTime(wordsCount)} minutes)<br>
       ${fileText}`;
       
        
