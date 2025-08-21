@@ -27,6 +27,7 @@ h5 {
 }
 .card-body {
   height: 270px;
+  background-image: linear-gradient(to bottom right, white, rgb(214, 206, 206));
 }
 
 .homePageTitle {
@@ -67,7 +68,7 @@ h5 {
 
 a {
   text-decoration: none !important;
-  color: black !important;
+  color: #755326 !important;
 }
 
 footer ul li, .shareButtons ul li {
