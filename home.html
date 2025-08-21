@@ -24,35 +24,58 @@
       for (var key in posts) {
         if (count >= 20) break; // Limit to 20 posts
         if (posts.hasOwnProperty(key)) {
-          var image;
-          if (posts[key].photo == "") image = getString("postDefaultPhoto");
-          else image = posts[key].photo;
+          // Extract the year from the date
+          var myDate = new Date(posts[key]['date']);
+          const year = myDate.getFullYear();
+          var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          const month = (monthNames[myDate.getMonth()]);
+
+          let post_title = getPostTitle(posts[key].title);
+          let post_url = getPostUrl(posts[key].title);
+          let post_date = posts[key].date;
+          let post_category = posts[key].category;
+          let postExcerpt;
+          let wordsCount;
+          let readingMinutes;
+          $.ajax({
+            url: `Posts/${year}/${month}/${posts[key]['title']}.txt`,
+            type: "GET",
+            dataType: "text",
+            success: function (post) {
+            postExcerpt = post.replace(/<[^>]*>/g, '').substring(0, 200);
+            wordsCount = countWords(post);
+            readingMinutes = calculateReadingTime(wordsCount);
+
           $('#posts').append(
             `
             <div class="col-12 col-md-6 col-lg-4">
               <div class="card p-2 m-1">
                 <div class="card-title">
-                  <span class="postDate">${posts[key].date}</span>
+                  <a class="postURL" href='${post_url}' rel="dofollow">
+                    <h5>${post_title}</h5>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <p>${postExcerpt}...</p>
+                  <a class="postURL float-end" href='${post_url}' rel="dofollow">
+                    Read More
+                  </a>
+                </div>
+                <div class="card-footer">
+                  <span>${wordsCount} words</span> | 
+                  <span>${readingMinutes} minutes</span><br>
+                  <span class="postDate">${post_date}</span>
                   <span class="postCategory">
-                    <a class="category" href="?page=category&c=${posts[key].category}">
-                      ${posts[key].category}
+                    <a class="category" href="?page=category&c=${post_category}">
+                      <h5>${post_category}</h5>
                     </a>
                   </span>
-                </div>
-                <div class="card-body postImage">
-                  <a class="postURL" href='${getPostUrl(posts[key].title)}' rel="dofollow">
-                    <img src="${image}" />
-                  </a>
-                </div>
-                <div class="postTitle card-footer">
-                  <a class="postURL" href='${getPostUrl(posts[key].title)}' rel="dofollow">
-                    ${getPostTitle(posts[key].title)}
-                  </a>
                 </div>
               </div>
             </div>
         `
           );
+          }});
         }
         count++;
       }

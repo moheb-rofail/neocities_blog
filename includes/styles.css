@@ -16,23 +16,17 @@ header {
   clear: both;
 }
 
+.card-title {
+  height: 65px;
+    padding: 5px;
+    overflow-y: hidden;
+}
+
+h5 {
+  line-height: 2rem !important;
+}
 .card-body {
-  height: 300px;
-}
-
-.card-body img {
-    width: 100%;
-    height: 100%;
-  margin: auto;
-  max-height: 100%;
-  max-width: 100%;
-}
-
-.card-footer {
-  height: 80px;
-  overflow-y: hidden;
-  text-align: center;
-  background-color: aquamarine !important;
+  height: 270px;
 }
 
 .homePageTitle {
@@ -161,11 +155,7 @@ footer {
     padding: 4px 10px;
   }
 
-  .card-body {
-      height: auto;
-  }
-
- .card-footer, .card-body {
+  .card-body, .card-title {
       height: auto;
   }
 
