@@ -27,6 +27,7 @@ h5 {
 }
 .card-body {
   height: 270px;
+  background-image: linear-gradient(to bottom right, white, rgb(214, 206, 206));
 }
 
 .homePageTitle {
