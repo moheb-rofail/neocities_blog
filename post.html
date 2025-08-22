@@ -55,7 +55,7 @@ async function fetchData() {
     let postsInCategory = posts.filter(p => p.category === category);
 
       if (postsInCategory.hasOwnProperty(key1)) {
-        if(key1 == post_title) continue;
+        if(getPostTitle(postsInCategory[key1].title) == post_title) continue;
         var value1 = postsInCategory[key1];
         if(value1['category'] == category) {
           if(counter < 5)
