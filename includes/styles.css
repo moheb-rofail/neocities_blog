@@ -27,7 +27,7 @@ h5 {
 }
 .card-body {
   height: 270px;
-  background-image: linear-gradient(to bottom right, white, rgb(214, 206, 206));
+  background-image: linear-gradient(to bottom right, white, rgb(246 238 215))
 }
 
 .homePageTitle {
@@ -166,5 +166,9 @@ footer {
 }
 
 nav, header, footer {
-    background-color: aquamarine !important;
+    background-color: #fbdc96 !important;
+}
+
+.btn {
+    color: white !important;
 }
