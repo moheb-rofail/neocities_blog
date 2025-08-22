@@ -106,7 +106,7 @@ const v_formHtml = `
         <input name="entry.${s_moderatedId}" id="entry.${s_moderatedId}" type="hidden" readonly value="true">
     </div>
 
-    <input  class="btn btn-success" id="c_submitButton" name="c_submitButton" type="submit" value="${s_submitButtonLabel}">
+    <input  class="btn btn-warning" id="c_submitButton" name="c_submitButton" type="submit" value="${s_submitButtonLabel}">
 `;
 
 // Insert main HTML to page
@@ -285,7 +285,7 @@ function displayComments(comments) {
         button.setAttribute('onclick', `openReply(this.value)`);
         button.className = 'c-replyButton';
         button.classList.add('btn');
-        button.classList.add('btn-success');
+        button.classList.add('btn-warning');
         comment.appendChild(button);
 
         // Choose whether to display or not based on page number
@@ -329,7 +329,7 @@ function displayComments(comments) {
             button.setAttribute('onclick', `expandReplies(this.parentElement.id)`);
             button.className = 'c-expandButton';
             button.classList.add('btn');
-            button.classList.add('btn-success');
+            button.classList.add('btn-warning');
             parentDiv.insertBefore(button, parentDiv.lastChild);
         }
     }
@@ -344,7 +344,7 @@ function displayComments(comments) {
         if (v_pageNum == 1) {leftButton.disabled = true} // Can't go before page 1
         leftButton.className = 'c-paginationButton';
         button.classList.add('btn');
-        button.classList.add('btn-success');
+        button.classList.add('btn-warning');
         pagination.appendChild(leftButton);
 
         rightButton = document.createElement('button');
@@ -353,7 +353,7 @@ function displayComments(comments) {
         if (v_pageNum == v_amountOfPages) {rightButton.disabled = true} // Can't go after the last page
         rightButton.className = 'c-paginationButton';
         button.classList.add('btn');
-        button.classList.add('btn-success');
+        button.classList.add('btn-warning');
         pagination.appendChild(rightButton);
 
         pagination.id = 'c_pagination';
