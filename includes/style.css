@@ -1,0 +1,180 @@
+/* Home Page */
+body {
+  font-size: large !important;
+  line-height: 2rem !important;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  font-size: 2rem !important;;
+}
+
+#Sponsers {
+  clear: both;
+}
+
+.card-title {
+  height: 65px;
+    padding: 5px;
+    overflow-y: hidden;
+}
+
+h5 {
+  line-height: 2rem !important;
+}
+.card-body {
+  height: 270px;
+  background-image: linear-gradient(to bottom right, white, rgb(246 238 215))
+}
+
+.homePageTitle {
+  text-align: center;
+  background-color: #0095ff;
+  padding: 10px;
+}
+
+.postDate {
+  float: right;
+}
+
+/* other pages */
+.shareButtons,
+.not_found_text {
+  width: 60%;
+}
+
+#post .postsRow {
+  margin-left: 30px;
+}
+
+#post>img, #post>p>img {
+  text-align: center;
+  display: block;
+  max-width: 100%;
+  margin: 10px auto;
+}
+
+.shareButtons {
+  padding-bottom: 0;
+}
+
+.shareButtons ul , footer ul{
+  margin-top: 0;
+  text-align: center;
+}
+
+a {
+  text-decoration: none !important;
+  color: #755326 !important;
+}
+
+footer ul li, .shareButtons ul li {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.not_found_404 {
+  font-size: 8em;
+}
+
+.not_found_text {
+  text-align: center;
+}
+
+.friendURL .addURL {
+  text-align: right;
+}
+
+#pagination {
+  text-align: center;
+  clear: both;
+}
+
+/* it's the quotation tag */
+q {
+  padding: 10px 30px;
+  margin: 30px;
+  display: block;
+  font-style: italic;
+  border-left: 5px solid black;
+}
+
+.c-site,
+.c-name {
+  float: left;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.c-timestamp {
+  float: right;
+}
+
+.c-postURL {
+  margin-left: 10px;
+}
+
+#c_pagination {
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.regular-page-width {
+  width:90%;
+  margin: auto;
+}
+
+footer {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 700px) {
+.regular-page-width {
+  width:95%;
+  margin: auto;
+}
+  .social ul,
+  .diaries ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .friendURL .addURL,
+  .friendURL .URLtitle {
+    display: block;
+  }
+
+  q {
+    margin: 10px;
+    padding: 4px 10px;
+  }
+
+  .card-body, .card-title {
+      height: auto;
+  }
+
+    .shareButtons{
+        width: 100%;
+    }
+}
+
+nav, header, footer {
+    background-color: #fbdc96 !important;
+}
+
+/* Swiper styles */
+.swiper {
+  height: 300px;
+}
+.swiper-slide{
+  width: 400px !important;
+  background-color: yellow;
+  padding: 10px;
+}

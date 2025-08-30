@@ -20,9 +20,8 @@
     type: "GET",
     dataType: "json",
     success: function (posts) {
-      var count = 0;
+      posts = posts.slice(0, 20);
       for (var key in posts) {
-        if (count >= 20) break; // Limit to 20 posts
         if (posts.hasOwnProperty(key)) {
           // Extract the year from the date
           var myDate = new Date(posts[key]['date']);
@@ -37,6 +36,7 @@
           let postExcerpt;
           let wordsCount;
           let readingMinutes;
+          
           $.ajax({
             url: `Posts/${year}/${month}/${posts[key]['title']}.txt`,
             type: "GET",
@@ -75,10 +75,9 @@
             </div>
         `
           );
-          }});
-        }
-        count++;
-      }
+        }});
+      } 
+    }    
     },
     error: function (xhr, status, error) {
       // Handle errors
